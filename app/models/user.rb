@@ -8,6 +8,10 @@ class User < ApplicationRecord
   has_many :favorites,dependent: :destroy
   attachment :profile_image, destroy: false
 
+  def favorited_by?(book)
+		self.favorites.exists?(book_id: book.id)
+  end
+
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
 end
